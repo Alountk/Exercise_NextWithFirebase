@@ -1,5 +1,5 @@
-import React from 'react'
-import { Layout } from '../components/layout/layout'
+import React from 'react';
+import { Layout } from '../components/layout/layout';
 
 
 
@@ -8,7 +8,7 @@ export default function Home() {
     <>
       <Layout>
         <div className="container">
-          <h1>Nosotros</h1>
+          <h1>Hola</h1>
         </div>
       </Layout>
     </>
