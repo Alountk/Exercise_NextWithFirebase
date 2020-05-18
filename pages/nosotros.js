@@ -8,7 +8,7 @@ export default function Home() {
     <>
       <Layout>
         <div className="container">
-          <h1>Hola</h1>
+          <h1>Nosotros</h1>
         </div>
       </Layout>
     </>
