@@ -13,7 +13,7 @@ export const useValidation = (initialState, validate, genericFunction) => {
             }
             setSubmitForm(false);
         }
-    }, []);
+    }, [error]);
 
     const handleChange = e => {
         setValue({
@@ -30,12 +30,17 @@ export const useValidation = (initialState, validate, genericFunction) => {
         setSubmitForm(true);
     }
 
+    const handleBlur = () => {
+        const  errorValidation = validate(value);
+        setError(errorValidation);
+    }
+
 
     return {
         value,
         error,
-        submitForm,
         handleSubmit,
-        handleChange
+        handleChange,
+        handleBlur
     };
 }

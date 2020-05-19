@@ -3,11 +3,11 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 
 const InputText = styled.input`
-  border:1px solid var(${props => props.bColor || 'white'});
+  border:1px solid var(${props => props.bColor || '--white'});
   height:2.5rem;
 `
 
-const InputSubmit =  styled.button`
+const InputSubmit =  styled.input`
   height: 2rem;
   width: 2rem;
   display:block;
@@ -31,7 +31,6 @@ export const Search = () => {
         <form
           css={css`
             position:relative;
-
           `}
         >
           <InputText 
