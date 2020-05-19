@@ -50,6 +50,7 @@ export default function NewProduct() {
       name,
       company,
       url,
+      urlImage,
       description,
       vote: 0,
       comments: [],
@@ -57,12 +58,14 @@ export default function NewProduct() {
     };
     try {
       await firebase.db.collection("products").add(product);
+
+      return router.push('/');
     } catch (e) {
       console.error("Ha habido un error al crear el producto", e.message);
       setErrorCreateProduct(e.message);
     }
   }
-  const handleUploadStart = (){
+  const handleUploadStart = () => {
     setProgress(0);
     setUpload(true);
     
@@ -73,8 +76,20 @@ export default function NewProduct() {
     setUpload(error);
     console.error(error);
   }
-  const handleUploadSuccess = name => {
 
+  const handleUploadSuccess = name => {
+    setProgress(100);
+    setUpload(false);
+    setNameImage(name)
+    firebase
+      .storage
+      .ref('products')
+      .child(name)
+      .getDownloadURL()
+      .then(url => {
+        console.log(url);
+        setUrlImage(url)
+      });
   }
 
   return (
@@ -127,18 +142,14 @@ export default function NewProduct() {
                     accept="image/*"
                     id="image"
                     name="image"
-                    value={image}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
                     randomizeFilename
-                    storageRef={firebase.storage().ref('products')}
+                    storageRef={firebase.storage.ref('products')}
                     onUploadStart={handleUploadStart}
                     onUploadError={handleUploadError}
                     onUploadSuccess={handleUploadSuccess}
                     onProgress={handleProgress}
                   />
                 </Field>
-                {error.image && <Error error={error.image} />}
 
                 <Field>
                   <label htmlFor="url">Url</label>
