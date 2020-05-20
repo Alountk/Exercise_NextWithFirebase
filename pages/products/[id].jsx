@@ -45,10 +45,10 @@ const Product = () => {
   const [error, setError] = useState(false);
   const [comment, setComment] = useState({});
   const [checkDB, setCheckDB] = useState(true);
+  const [hasVoteProduct, setHasVoteProduct] = useState(false);
   const router = useRouter();
-  const {
-    query: { id },
-  } = router;
+  const { query: { id }} = router;
+  
 
   const { firebase, user } = useContext(FirebaseContext);
 
@@ -68,16 +68,30 @@ const Product = () => {
       };
       obtainProduct();
     }
-  }, [id]);
+  }, [id,checkDB]);
+  const {
+    name,
+    company,
+    description,
+    url,
+    urlImage,
+    vote,
+    created,
+    comments,
+    creator,
+    hasVoted,
+  } = product;
 
   const voteProduct = () => {
     if (!user) {
       return router.push("/login");
     }
     const newTotalVotes = vote + 1;
-
-    if (hasVoted.includes(user.uid)) return;
-
+    if(hasVoteProduct)return;
+    if (hasVoted.includes(user.uid)){ 
+        return setHasVoteProduct(true);
+    }
+    
     const newHasVoted = [...hasVoted, user.uid];
 
     firebase.db.collection("products").doc(id).update({
@@ -124,36 +138,25 @@ const Product = () => {
       [e.target.name]: e.target.value,
     });
 
-  if (Object.keys(product).length === 0 && !error) return "Cargando...";
-
-  const {
-    name,
-    company,
-    description,
-    url,
-    urlImage,
-    vote,
-    created,
-    comments,
-    creator,
-    hasVoted,
-  } = product;
-
-  const creatorDeleteProduct = () =>{
-      if(!user) return false;
-      if(creator.id === user.uid)return true
-  }
-
-  const deleteProduct = async () => {
-      if(!user) return router.push('/login');
-      if(creator.id !== user.uid)router.push('/')         
-      try {
-          await  firebase.db.collection('products').doc(id).delete();
-          router.push('/')
-      } catch (e) {
-          console.error(e);          
-      }
-  }
+    
+    
+    const creatorDeleteProduct = () =>{
+        if(!user) return false;
+        if(creator.id === user.uid)return true
+    }
+    
+    const deleteProduct = async () => {
+        if(!user) return router.push('/login');
+        if(creator.id !== user.uid)router.push('/')         
+        try {
+            await  firebase.db.collection('products').doc(id).delete();
+            router.push('/')
+        } catch (e) {
+            console.error(e);          
+        }
+    }
+    
+    if (Object.keys(product).length === 0 && !error) return "Cargando...";
 
   return (
     <Layout>
