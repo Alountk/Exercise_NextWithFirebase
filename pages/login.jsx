@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { css } from "@emotion/core";
-import { Layout } from "../components/layout/layout";
+import { Layout } from "../components/layout/Layout";
 import { Form, Field, InputSubmit } from "../components/ui/Form";
 import Router from "next/router";
 

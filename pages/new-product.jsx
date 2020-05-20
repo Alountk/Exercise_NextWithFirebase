@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import FileUploader from 'react-firebase-file-uploader';
 import { css } from "@emotion/core";
-import { Layout } from "../components/layout/layout";
+import { Layout } from "../components/layout/Layout";
 import { Form, Field, InputSubmit } from "../components/ui/Form";
 import Router, { useRouter } from "next/router";
 

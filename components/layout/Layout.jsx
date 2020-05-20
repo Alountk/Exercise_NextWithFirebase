@@ -47,6 +47,9 @@ export const Layout = props => {
                 a {
                     text-decoration:none;
                 }
+                img {
+                    width: 100%;
+                }
             `}/>
             <Head>
                 <html lang="es" />
