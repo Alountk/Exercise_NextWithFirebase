@@ -17,7 +17,7 @@ const ContainerHeader = styled.div`
     }
 `;
 
-const Logo = styled.p`
+const Logo = styled.a`
     color: var(--orange);
     font-size: 4rem;
     line-height: 0;
@@ -69,7 +69,7 @@ export const Header = () => {
                             bgColor={'--orange'} 
                             color={'--white'} 
                             onClick={ () => firebase.logout() }
-                            ><a>Cerrar sesion</a></Button>
+                            >Cerrar sesion</Button>
                     </>
                 ):(
                     <>

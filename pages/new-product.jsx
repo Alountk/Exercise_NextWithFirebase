@@ -90,7 +90,6 @@ export default function NewProduct() {
       .child(name)
       .getDownloadURL()
       .then((url) => {
-        console.log(url);
         setUrlImage(url);
       });
   };
