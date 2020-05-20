@@ -42,6 +42,7 @@ export default function NewProduct() {
 
   const { user, firebase } = useContext(FirebaseContext);
 
+
   async function createProduct() {
     if (!user) {
       return router.push("/login");
@@ -54,7 +55,12 @@ export default function NewProduct() {
       description,
       vote: 0,
       comments: [],
-      create: Date.now(),
+      created: Date.now(),
+      creator: {
+        id: user.uid,
+        name: user.displayName
+      }
+
     };
     try {
       await firebase.db.collection("products").add(product);

@@ -82,7 +82,7 @@ export const ProductDetails = ({ product }) => {
     url,
     urlImage,
     vote,
-    create,
+    created,
     id,
     comments,
   } = product;

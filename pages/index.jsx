@@ -25,7 +25,7 @@ export default function Home() {
 
   useEffect(() => {
     const obtainProducts = () => {
-      firebase.db.collection('products').orderBy('create','desc').onSnapshot(useSnapshot)
+      firebase.db.collection('products').orderBy('created','desc').onSnapshot(useSnapshot)
     }
     obtainProducts();
   }, [])
