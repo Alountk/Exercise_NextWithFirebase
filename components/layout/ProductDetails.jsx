@@ -105,7 +105,7 @@ export const ProductDetails = ({ product }) => {
           </Comments>
           <p>
             Publicado hace:
-            {formatDistanceToNow(new Date(create), { locale: es })}
+            {formatDistanceToNow(new Date(created), { locale: es })}
           </p>
         </div>
       </ProductDescription>

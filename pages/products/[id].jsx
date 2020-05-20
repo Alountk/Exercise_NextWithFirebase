@@ -29,7 +29,7 @@ const Product = () => {
     const router = useRouter();
     const { query: { id } } = router;
 
-    const { firebase } = useContext(FirebaseContext);
+    const { firebase, user } = useContext(FirebaseContext);
 
     useEffect(() => {
         if(id){
@@ -48,7 +48,7 @@ const Product = () => {
 
     if(Object.keys(product).length === 0) return 'Cargando...';
 
-    const { name, company, description, url, urlImage, vote, created, comments } = product;
+    const { name, company, description, url, urlImage, vote, created, comments, creator } = product;
 
 
     return (
@@ -65,22 +65,27 @@ const Product = () => {
                 <ProductContainer>
                     <div>
                         <p>Publicado hace: {formatDistanceToNow(new Date(created), { locale: es })}</p>
+                        <p>Por: {creator.name} de {company} </p>
                         <img src={urlImage} alt=""/>
                         <p>{description}</p>
 
-                        <h2>Agrega tu comentario</h2>
-                        <form>
-                            <Field>
-                                <input 
-                                    type="text"
-                                    name="msg"
+                       {user &&
+                        <>
+                            <h2>Agrega tu comentario</h2>
+                            <form>
+                                <Field>
+                                    <input 
+                                        type="text"
+                                        name="msg"
+                                    />
+                                </Field>
+                                <InputSubmit 
+                                    type="submit"
+                                    value="Agregar Comentario"
                                 />
-                            </Field>
-                            <InputSubmit 
-                                type="submit"
-                                value="Agregar Comentario"
-                            />
-                        </form>
+                            </form>
+                        </>
+                       }
                         <h2 css={css`
                             margin:2rem 0;
                         `}>Comentarios</h2>
@@ -102,9 +107,7 @@ const Product = () => {
                             text-align: center;
                         `}>{vote} Votos</p>
                         </div>
-                        <Button
-                        
-                        >Votar</Button>
+                        {user&& <Button>Votar</Button>}
                     </aside>
                 </ProductContainer>
             </div>
